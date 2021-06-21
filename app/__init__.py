@@ -22,3 +22,7 @@ def my_wishlist():
 @app.route('/blog')
 def my_blog():
     return render_template('blog.html', title="Blog", url=os.getenv("URL"))
+
+@app.route('/health')
+def health():
+    return render_template('health.html', title="Health", url=os.getenv("URL"))
