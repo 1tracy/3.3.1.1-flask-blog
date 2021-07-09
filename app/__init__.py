@@ -32,7 +32,7 @@ class UserModel(db.Model):
 
     def __repr__(self):
         return f"<User {self.username}>"
-        
+
 # ROUTES
 @app.route('/')
 def index():
@@ -74,7 +74,7 @@ def register():
         else:
             return error, 418
 
-    # TODO: Return a restister page
+    # TODO: Return a register page
     return "Register Page not yet implemented", 501
 
 
