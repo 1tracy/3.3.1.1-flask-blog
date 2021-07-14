@@ -1,8 +1,6 @@
 name: Deploy
 
 on:
-  # Trigger the workflow on push/pr
-
   push:
     branches:
       - master
@@ -13,7 +11,7 @@ on:
 
 jobs:
   deploy:
-    name: "Deploy to AWS EC2 VM"
+    name: "Deploy to AWS EC2 Virtual Machine"
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
@@ -43,4 +41,11 @@ jobs:
           git fetch && git reset --hard origin/master &&
           docker-compose up -d --build &&
           docker-compose ps
+          '
+      - name: Deployment failure
+        if: ${{ failure() }}
+        run: >-
+          ssh my-vm 
+          '
+          curl -s -X POST "${{ secrets.DISCORD_WEBHOOK }}" -d "content= Deployment Failed!"
           '
