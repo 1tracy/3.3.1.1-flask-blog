@@ -28,16 +28,16 @@ jobs:
             black: true
             flake8: true
             auto_fix: true
-  docker:
-    runs-on: ubuntu-latest
-    steps:
-      -
-        name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: false
-          tags: user/app:latest
-      -
-        name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+  # docker:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     -
+  #       name: Build and push
+  #       id: docker_build
+  #       uses: docker/build-push-action@v2
+  #       with:
+  #         push: false
+  #         tags: user/app:latest
+  #     -
+  #       name: Image digest
+  #       run: echo ${{ steps.docker_build.outputs.digest }}
