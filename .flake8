@@ -1,2 +1,2 @@
 [flake8]
-exclude = python3-virtualenv
+exclude = python3-virtualenv, migrations
