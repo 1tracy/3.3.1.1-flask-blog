@@ -1,33 +1,42 @@
 name: Lint
-# define when the actions are triggered here:
+
 on:
   push:
     branches:
       - master
-  pull request:
+  pull_request:
     branches:
       - master
-
-# define what the actions are
 jobs:
   run-linters:
-    name: Run Linters
-    runs-on: ubuntu-latest
+     name: Run linters
+     runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out Git repository
-        uses: actions/checkout@v2
+     steps:
+       - name: Check out Git repository
+         uses: actions/checkout@v2
       
-      - name: Set up Python
-        uses: actions/setup-python@v1
+       - name: Set up Python
+         uses: actions/setup-python@v1
+         with:
+           python-version: 3.9
+       - name: Install Python dependencies
+         run: pip install black flake8
+       - name: Run linters
+         uses: wearerequired/lint-action@v1
+         with:
+            flake8: true
+            auto_fix: true
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
         with:
-          python-version: 3.9
-
-      - name: Install python dependencies
-        run: pip install black flake8
-
-      - name: Run Linters
-        uses: wearerequired/lint-action@v1.10.0
-        with:
-          black: true
-          flake8: true
+          push: false
+          tags: user/app:latest
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
